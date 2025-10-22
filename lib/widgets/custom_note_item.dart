@@ -26,7 +26,7 @@ class CustomNoteItem extends StatelessWidget {
               padding: const EdgeInsets.symmetric(vertical: 16),
               child: Text("Build your career with tharwat samy",
                 style: TextStyle(
-                  fontSize: 16,
+                  fontSize:20 ,
                   color: Colors.black.withValues(alpha: .7),
                 ),
               ),

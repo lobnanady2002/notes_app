@@ -14,7 +14,8 @@ class CustomViewBody extends StatelessWidget {
             height: 50,
           ),
           CustomAppBar(),
-          Expanded(child: NotesListView()),
+          Expanded(
+              child: NotesListView()),
         ],
       ),
     );

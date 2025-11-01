@@ -9,32 +9,76 @@ class AddNoteBottomSheet extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: SingleChildScrollView(
-        child: Column(
-          children: [
-            SizedBox(
-              height: 24,
-            ),
-            CustomTextField(
-              hint: 'Title',
-            ),
-            SizedBox(
-              height: 16,
-            ),
-            CustomTextField(
-              maxLine: 5,
-              hint: 'content',
-            ),
-            SizedBox(
-              height: 32,
-            ),
-            CustomButton(),
-            SizedBox(
-              height: 30,
-            ),
+        child: AddNotesForm(),
+      ),
+    );
+  }
+}
 
-          ],
+class AddNotesForm extends StatefulWidget {
+  const AddNotesForm({
+    super.key,
+  });
 
-        ),
+  @override
+  State<AddNotesForm> createState() => _AddNotesFormState();
+}
+
+class _AddNotesFormState extends State<AddNotesForm> {
+
+   GlobalKey<FormState> formKey=GlobalKey();
+   AutovalidateMode lobna =AutovalidateMode.disabled;
+
+   String? title,subTitle;
+
+  @override
+  Widget build(BuildContext context) {
+    return Form(
+      key: formKey,
+      autovalidateMode: lobna,
+      child: Column(
+        children: [
+          SizedBox(
+            height: 24,
+          ),
+          CustomTextField(
+            onSaved: (value){
+              title=value;
+            },
+            hint: 'Title',
+          ),
+          SizedBox(
+            height: 16,
+          ),
+          CustomTextField(
+            onSaved: (value){
+              subTitle=value;
+            },
+            maxLine: 5,
+            hint: 'content',
+          ),
+          SizedBox(
+            height: 32,
+          ),
+          CustomButton(
+            onTap: (){
+              if(formKey.currentState!.validate()){
+                formKey.currentState!.save();
+              }else{
+                lobna =AutovalidateMode.always;
+                setState(() {
+
+                });
+              }
+            },
+
+          ),
+          SizedBox(
+            height: 30,
+          ),
+
+        ],
+
       ),
     );
   }

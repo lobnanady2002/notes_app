@@ -27,7 +27,7 @@ class AddNotesForm extends StatefulWidget {
 class _AddNotesFormState extends State<AddNotesForm> {
 
    GlobalKey<FormState> formKey=GlobalKey();
-   AutovalidateMode lobna =AutovalidateMode.disabled;
+   AutovalidateMode autovalidateMode =AutovalidateMode.disabled;
 
    String? title,subTitle;
 
@@ -35,7 +35,7 @@ class _AddNotesFormState extends State<AddNotesForm> {
   Widget build(BuildContext context) {
     return Form(
       key: formKey,
-      autovalidateMode: lobna,
+      autovalidateMode: autovalidateMode,
       child: Column(
         children: [
           SizedBox(
@@ -44,6 +44,7 @@ class _AddNotesFormState extends State<AddNotesForm> {
           CustomTextField(
             onSaved: (value){
               title=value;
+
             },
             hint: 'Title',
           ),
@@ -63,9 +64,9 @@ class _AddNotesFormState extends State<AddNotesForm> {
           CustomButton(
             onTap: (){
               if(formKey.currentState!.validate()){
-                formKey.currentState!.save();
+               formKey.currentState!.save();
               }else{
-                lobna =AutovalidateMode.always;
+                autovalidateMode =AutovalidateMode.always;
                 setState(() {
 
                 });

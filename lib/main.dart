@@ -6,15 +6,13 @@ import 'package:notes_app/cubits/add_notes_cuibt/add_notes_cubit.dart';
 import 'package:notes_app/models/note_model.dart';
 import 'package:notes_app/simple_bloc_observer.dart';
 import 'package:notes_app/views/notes_view.dart';
-
 void main() async {
   Bloc.observer =SimpleBlocObserver();
  await Hive.initFlutter();
- await Hive.openBox(kNotesBox);
- Hive.registerAdapter(NoteModelAdapter());
+  Hive.registerAdapter(NoteModelAdapter());
+  await Hive.openBox<NoteModel>(kNotesBox);
   runApp(const NotesApp());
 }
-
 class NotesApp extends StatelessWidget {
   const NotesApp({super.key});
 

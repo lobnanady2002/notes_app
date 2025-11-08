@@ -5,6 +5,7 @@ import 'package:notes_app/models/note_model.dart';
 
 import 'custom_button.dart';
 import 'custom_text_field.dart';
+
 class AddNotesForm extends StatefulWidget {
   const AddNotesForm({
     super.key,
@@ -16,10 +17,10 @@ class AddNotesForm extends StatefulWidget {
 
 class _AddNotesFormState extends State<AddNotesForm> {
 
-  GlobalKey<FormState> formKey=GlobalKey();
-  AutovalidateMode autovalidateMode =AutovalidateMode.disabled;
+  GlobalKey<FormState> formKey = GlobalKey();
+  AutovalidateMode autovalidateMode = AutovalidateMode.disabled;
 
-  String? title,subTitle;
+  String? title, subTitle;
 
   @override
   Widget build(BuildContext context) {
@@ -32,9 +33,8 @@ class _AddNotesFormState extends State<AddNotesForm> {
             height: 24,
           ),
           CustomTextField(
-            onSaved: (value){
-              title=value;
-
+            onSaved: (value) {
+              title = value;
             },
             hint: 'Title',
           ),
@@ -42,8 +42,8 @@ class _AddNotesFormState extends State<AddNotesForm> {
             height: 16,
           ),
           CustomTextField(
-            onSaved: (value){
-              subTitle=value;
+            onSaved: (value) {
+              subTitle = value;
             },
             maxLine: 5,
             hint: 'content',
@@ -51,26 +51,31 @@ class _AddNotesFormState extends State<AddNotesForm> {
           SizedBox(
             height: 32,
           ),
-          CustomButton(
-            onTap: (){
-              if(formKey.currentState!.validate()){
-                formKey.currentState!.save();
-                var noteModel=NoteModel(
-                    title: title!,
-                    subTitle: subTitle!,
-                    data: DateTime.now().toString(),
-                    color: Colors.blue.toARGB32(),
-                   // color: Colors.blue.value
+          BlocBuilder<AddNotesCubit, AddNotesState>(
+            builder: (context, state) {
+              return CustomButton(
+                isLoading: state is AddNotesLoading ? true : false,
+                onTap: () {
+                  if (formKey.currentState!.validate()) {
+                    formKey.currentState!.save();
+                    var noteModel = NoteModel(
+                      title: title!,
+                      subTitle: subTitle!,
+                      data: DateTime.now().toString(),
+                      color: Colors.blue.toARGB32(),
+                      // color: Colors.blue.value
                     );
-                  BlocProvider.of<AddNotesCubit>(context).addNote(noteModel);
-              }else{
-                autovalidateMode =AutovalidateMode.always;
-                setState(() {
+                    BlocProvider.of<AddNotesCubit>(context).addNote(noteModel);
+                  } else {
+                    autovalidateMode = AutovalidateMode.always;
+                    setState(() {
 
-                });
-              }
+                    });
+                  }
+                },
+
+              );
             },
-
           ),
           SizedBox(
             height: 30,

@@ -5,7 +5,6 @@ import 'add_note_form.dart';
 
 class AddNoteBottomSheet extends StatelessWidget {
   const AddNoteBottomSheet({super.key});
-
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -20,13 +19,15 @@ class AddNoteBottomSheet extends StatelessWidget {
           }
         },
         builder: (context, state) {
+          print('ui rebuild');
           return AbsorbPointer(
             absorbing: state is AddNotesLoading ? true :false,
             child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                child: SingleChildScrollView(
-                    child: AddNotesForm()
+                padding:  EdgeInsets.only(left: 16,right: 16,
+                bottom: MediaQuery.of(context).viewInsets.bottom,
                 ),
+                child: SingleChildScrollView(
+                    child: AddNotesForm()),
               ),
           );
         },

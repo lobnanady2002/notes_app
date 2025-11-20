@@ -43,7 +43,7 @@ class _EditViewBodyState extends State<EditViewBody> {
               title=value;
 
             },
-              hint: 'Title'),
+              hint: widget.note.title),
           SizedBox(
             height: 16,
           ),
@@ -52,7 +52,8 @@ class _EditViewBodyState extends State<EditViewBody> {
               content=value;
             },
 
-            hint: 'Content',maxLine: 5,),
+            hint: widget.note.subTitle
+            ,maxLine: 5,),
         ],
       ),
     );
